@@ -24,7 +24,11 @@ class HomeScreen extends StatelessWidget {
             ? CrossAxisAlignment.start
             : CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: kToolbarHeight + 20),
+          SizedBox(
+            height: Helper.passBreakPointViewPort(context)
+                ? kToolbarHeight - 20
+                : kToolbarHeight + 20,
+          ),
           Text(
             hello,
             style: AppStyle.headlineLarge(context).copyWith(
@@ -79,7 +83,8 @@ class HomeScreen extends StatelessWidget {
               child: const Text("Reach me"),
             ),
           ),
-          const SizedBox(height: kToolbarHeight),
+          if (!Helper.passBreakPointViewPort(context))
+            const SizedBox(height: kToolbarHeight),
         ],
       ),
     );

@@ -83,9 +83,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
         if (Helper.passBreakPointViewPort(context))
           Positioned(
             left: 30,
-            top: Helper.passBreakPointViewPort(context)
-                ? 30
-                : 30 + kToolbarHeight,
+            top: 30,
             child: SmoothPageIndicator(
               count: latestWork.length,
               controller: _pageController,
@@ -122,7 +120,7 @@ class _PortfolioItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (Helper.passBreakPointViewPort(context))
-          const SizedBox(height: kToolbarHeight),
+          const SizedBox(height: kToolbarHeight - 20),
         Text(
           work.company,
           style: AppStyle.bodyLarge(context).copyWith(

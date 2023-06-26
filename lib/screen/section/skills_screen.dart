@@ -18,7 +18,11 @@ class SkillsScreen extends StatelessWidget {
             ? CrossAxisAlignment.start
             : CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: kToolbarHeight + 20),
+          SizedBox(
+            height: Helper.passBreakPointViewPort(context)
+                ? kToolbarHeight - 20
+                : kToolbarHeight + 20,
+          ),
           Text(
             skill,
             style: AppStyle.headlineLarge(context).copyWith(

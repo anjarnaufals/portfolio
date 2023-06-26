@@ -27,7 +27,11 @@ class AboutScreen extends StatelessWidget {
             : CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
-          const SizedBox(height: kToolbarHeight + 20),
+          SizedBox(
+            height: Helper.passBreakPointViewPort(context)
+                ? kToolbarHeight - 20
+                : kToolbarHeight + 20,
+          ),
           Text(
             about,
             style: AppStyle.headlineLarge(context).copyWith(
@@ -44,84 +48,39 @@ class AboutScreen extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: Helper.passBreakPointViewPort(context) ? 10 : 30),
           Expanded(
-            child: AspectRatio(
-              aspectRatio: 14 / 5,
-              child: Text(
-                aboutDesc,
-                style: AppStyle.bodyMedium(context).copyWith(
-                  fontWeight: FontWeight.w400,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: AspectRatio(
+                aspectRatio: 14 / 5,
+                child: Text(
+                  aboutDesc,
+                  style: AppStyle.bodyMedium(context).copyWith(
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: Helper.passBreakPointViewPort(context)
+                      ? TextAlign.start
+                      : TextAlign.center,
                 ),
-                textAlign: Helper.passBreakPointViewPort(context)
-                    ? TextAlign.start
-                    : TextAlign.center,
               ),
             ),
           ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Clipboard.setData(const ClipboardData(text: myPhone));
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {
+                  Clipboard.setData(const ClipboardData(text: myPhone));
 
-                    App.scaffoldKey.currentState?.showSnackBar(
-                      SnackBar(
-                        backgroundColor: AppTheme.primary(context),
-                        content: const Text("Phone Number Copied"),
-                      ),
-                    );
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      style: AppStyle.bodyMedium(context).copyWith(
-                        fontWeight: FontWeight.w400,
-                      ),
-                      children: const [
-                        WidgetSpan(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.only(end: 10),
-                            child: SimpleSvg(StringAsset.phoneIcon),
-                          ),
-                        ),
-                        TextSpan(text: myPhone),
-                      ],
+                  App.scaffoldKey.currentState?.showSnackBar(
+                    SnackBar(
+                      backgroundColor: AppTheme.primary(context),
+                      content: const Text("Phone Number Copied"),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 6),
-                InkWell(
-                  onTap: () {
-                    Clipboard.setData(const ClipboardData(text: myEmail));
-
-                    App.scaffoldKey.currentState?.showSnackBar(
-                      SnackBar(
-                        backgroundColor: AppTheme.primary(context),
-                        content: const Text("Email Copied"),
-                      ),
-                    );
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      style: AppStyle.bodyMedium(context).copyWith(
-                        fontWeight: FontWeight.w400,
-                      ),
-                      children: const [
-                        WidgetSpan(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.only(end: 10),
-                            child: SimpleSvg(StringAsset.emailIcon),
-                          ),
-                        ),
-                        TextSpan(text: myEmail),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 6),
-                RichText(
+                  );
+                },
+                child: RichText(
                   text: TextSpan(
                     style: AppStyle.bodyMedium(context).copyWith(
                       fontWeight: FontWeight.w400,
@@ -130,15 +89,27 @@ class AboutScreen extends StatelessWidget {
                       WidgetSpan(
                         child: Padding(
                           padding: EdgeInsetsDirectional.only(end: 10),
-                          child: SimpleSvg(StringAsset.locationIcon),
+                          child: SimpleSvg(StringAsset.phoneIcon),
                         ),
                       ),
-                      TextSpan(text: myLocation),
+                      TextSpan(text: myPhone),
                     ],
                   ),
                 ),
-                const SizedBox(height: 6),
-                RichText(
+              ),
+              const SizedBox(height: 6),
+              InkWell(
+                onTap: () {
+                  Clipboard.setData(const ClipboardData(text: myEmail));
+
+                  App.scaffoldKey.currentState?.showSnackBar(
+                    SnackBar(
+                      backgroundColor: AppTheme.primary(context),
+                      content: const Text("Email Copied"),
+                    ),
+                  );
+                },
+                child: RichText(
                   text: TextSpan(
                     style: AppStyle.bodyMedium(context).copyWith(
                       fontWeight: FontWeight.w400,
@@ -147,15 +118,49 @@ class AboutScreen extends StatelessWidget {
                       WidgetSpan(
                         child: Padding(
                           padding: EdgeInsetsDirectional.only(end: 10),
-                          child: SimpleSvg(StringAsset.graduationIcon),
+                          child: SimpleSvg(StringAsset.emailIcon),
                         ),
                       ),
-                      TextSpan(text: myDegree),
+                      TextSpan(text: myEmail),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 6),
+              RichText(
+                text: TextSpan(
+                  style: AppStyle.bodyMedium(context).copyWith(
+                    fontWeight: FontWeight.w400,
+                  ),
+                  children: const [
+                    WidgetSpan(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.only(end: 10),
+                        child: SimpleSvg(StringAsset.locationIcon),
+                      ),
+                    ),
+                    TextSpan(text: myLocation),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 6),
+              RichText(
+                text: TextSpan(
+                  style: AppStyle.bodyMedium(context).copyWith(
+                    fontWeight: FontWeight.w400,
+                  ),
+                  children: const [
+                    WidgetSpan(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.only(end: 10),
+                        child: SimpleSvg(StringAsset.graduationIcon),
+                      ),
+                    ),
+                    TextSpan(text: myDegree),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

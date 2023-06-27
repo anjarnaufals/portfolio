@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(6),
               child: Image.asset(
-                StringAsset.orenoFoto,
+                StringAsset.orenoFotoCompressed,
                 height: MediaQuery.of(context).size.height * .3,
               ),
             ),

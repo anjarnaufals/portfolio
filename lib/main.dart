@@ -7,6 +7,8 @@ import 'package:url_strategy/url_strategy.dart';
 import 'package:portfolio/screen/main/main_cubit.dart';
 import 'package:portfolio/screen/main/main_screen.dart';
 
+// TODO : localization en, id.
+
 void main() {
   setPathUrlStrategy();
   runApp(const App());

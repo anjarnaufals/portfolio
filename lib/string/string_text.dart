@@ -10,8 +10,7 @@ const String kingkolMobile = "KingKOL Mobile";
 const String bedasMarket = "Bedas Market";
 const String threeSecondMobile = "3Second Mobile";
 const String skill = "Skillset - Tools";
-const String homeDesc =
-    '"An enthusiastic Flutter developer who enjoys playing games"';
+const String homeDesc = '"An enthusiastic Flutter developer who enjoys coffee"';
 const String aboutMe =
     "I am Anjar Naufal S, a Flutter Developer having 1 years of experience based in Indonesia.";
 const String aboutDesc =

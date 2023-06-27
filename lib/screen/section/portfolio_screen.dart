@@ -20,9 +20,10 @@ class PortfolioScreen extends StatefulWidget {
 }
 
 class _PortfolioScreenState extends State<PortfolioScreen> {
+  //
   final ValueNotifier<LatestWork> _latestWork = ValueNotifier(latestWork[0]);
-
   final PageController _pageController = PageController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,37 +48,53 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                     );
                   },
                 )
-              : GridView.builder(
-                  padding: const EdgeInsets.only(
-                    top: kToolbarHeight + 20,
-                    bottom: kToolbarHeight,
+              : ScrollbarTheme(
+                  data: ScrollbarThemeData(
+                    crossAxisMargin: 2,
+                    thickness: const MaterialStatePropertyAll(10),
+                    radius: const Radius.circular(6),
+                    thumbColor: MaterialStatePropertyAll(
+                      AppTheme.tertiary(context).withOpacity(.5),
+                    ),
                   ),
-                  primary: false,
-                  scrollDirection: Axis.horizontal,
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: MediaQuery.of(context).size.height,
-                    mainAxisExtent: MediaQuery.of(context).size.width * .4,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                  ),
-                  itemCount: latestWork.length,
-                  itemBuilder: (_, index) {
-                    final work = latestWork[index];
-
-                    return Container(
-                      padding: const EdgeInsets.all(30.0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          right: BorderSide(
-                            color: AppTheme.tertiary(context),
-                            width: .5,
-                          ),
-                        ),
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    controller: _scrollController,
+                    scrollbarOrientation: ScrollbarOrientation.bottom,
+                    child: GridView.builder(
+                      controller: _scrollController,
+                      padding: const EdgeInsets.only(
+                        top: kToolbarHeight + 20,
+                        bottom: kToolbarHeight,
                       ),
-                      child: _PortfolioItem(work: work),
-                    );
-                  },
+                      primary: false,
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: MediaQuery.of(context).size.height,
+                        mainAxisExtent: MediaQuery.of(context).size.width * .4,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                      ),
+                      itemCount: latestWork.length,
+                      itemBuilder: (_, index) {
+                        final work = latestWork[index];
+
+                        return Container(
+                          padding: const EdgeInsets.all(30.0),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              right: BorderSide(
+                                color: AppTheme.tertiary(context),
+                                width: .5,
+                              ),
+                            ),
+                          ),
+                          child: _PortfolioItem(work: work),
+                        );
+                      },
+                    ),
+                  ),
                 ),
         ),
         if (Helper.passBreakPointViewPort(context))
@@ -101,6 +118,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
   void dispose() {
     _latestWork.dispose();
     _pageController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 }

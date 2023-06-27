@@ -16,6 +16,8 @@ class StringAsset {
   static const String gitIcon = "assets/image/git.svg";
   static const String firebaseIcon = "assets/image/firebase2.svg";
   static const String orenoFoto = "assets/image/oreno_foto_no_bg.png";
+  static const String orenoFotoCompressed =
+      "assets/image/oreno_foto_no_bg_compressed.png";
   static const String googlePlayIcon = "assets/image/svg_google_play.svg";
   static const String discordIcon = "assets/image/discord_icon.svg";
   static const String linkedinIcon = "assets/image/linkedin_icon.svg";

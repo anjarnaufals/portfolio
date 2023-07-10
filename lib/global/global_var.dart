@@ -91,7 +91,7 @@ List<LatestWork> latestWork = const [
       ],
       descriptionRole: [
         "Translating UI/UX Figma design into Flutter code to ensure the application appears as expected.",
-        "Implementing a clean code architecture using the Getx pattern with adjustments for application scalability, aiming to facilitate easy modifications.",
+        "Implementing Getx pattern with adjustments for application scalability, aiming to facilitate easy modifications.",
         "Integrating the REST API from the backend team to ensure all features function properly",
         "Creating and developing several agreed-upon features with the aim of making the application function properly.",
         "Implementing custom widgets for reusability purposes, aiming to avoid code duplication.",

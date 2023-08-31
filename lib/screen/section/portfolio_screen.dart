@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-
 import 'package:portfolio/global/global_var.dart';
 import 'package:portfolio/helper/helper.dart';
 import 'package:portfolio/model/latest_work.dart';
 import 'package:portfolio/string/string_assets.dart';
 import 'package:portfolio/theme/app_text_style.dart';
 import 'package:portfolio/theme/app_theme.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({
@@ -152,7 +151,7 @@ class _PortfolioItem extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         Text(
-          "Agustus 2022 - present",
+          work.periode,
           style: AppStyle.bodySmall(context).copyWith(
             fontWeight: FontWeight.w300,
           ),
@@ -215,7 +214,7 @@ class _PortfolioItem extends StatelessWidget {
             );
           },
           child: Text(
-            "#View project preview",
+            "#App Preview",
             style: AppStyle.bodyMedium(context).copyWith(
               color: AppTheme.secondary(context),
             ),

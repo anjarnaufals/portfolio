@@ -26,4 +26,5 @@ class StringAsset {
   static const String vsCodeIcon = "assets/image/vscode.svg";
   static const String vsCodeIconPng = "assets/image/vscode.png";
   static const String gmailIcon = "assets/image/gmail_icon.svg";
+  static const String postmanIconSvg = "assets/image/postman_icon_svg.svg";
 }

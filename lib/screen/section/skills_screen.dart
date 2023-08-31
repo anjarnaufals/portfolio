@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:portfolio/global/global_var.dart';
 import 'package:portfolio/helper/helper.dart';
-import 'package:portfolio/string/string_assets.dart';
 import 'package:portfolio/string/string_text.dart';
 import 'package:portfolio/theme/app_text_style.dart';
 
@@ -36,29 +35,20 @@ class SkillsScreen extends StatelessWidget {
               spacing: Helper.passBreakPointViewPort(context)
                   ? 30
                   : MediaQuery.of(context).size.width * .15,
-              children: const [
-                _SkillWidget(
-                  label: 'Flutter',
-                  asset: StringAsset.flutterIcon,
-                  desc: '',
-                ),
-                _SkillWidget(
-                  label: 'Visual Studio Code',
-                  isSvg: false,
-                  asset: StringAsset.vsCodeIconPng,
-                  desc: '',
-                ),
-                _SkillWidget(
-                  label: 'Git',
-                  asset: StringAsset.gitIcon,
-                  desc: '',
-                ),
-                _SkillWidget(
-                  label: 'Insomnia',
-                  asset: StringAsset.insomniaIcon,
-                  desc: '',
-                ),
-              ],
+              children: skillsetTools
+                  .map(
+                    (skillsetTools) => _SkillWidget(
+                      label: skillsetTools.name,
+                      asset: skillsetTools.icon,
+                      isSvg: skillsetTools.name == 'Postman' ||
+                              skillsetTools.name == 'Firebase' ||
+                              skillsetTools.name == 'Flutter'
+                          ? true
+                          : false,
+                      desc: '',
+                    ),
+                  )
+                  .toList(),
             ),
           ),
           const SizedBox(height: 30),

@@ -1,5 +1,6 @@
 import 'package:portfolio/model/latest_work.dart';
 import 'package:portfolio/model/section_model.dart';
+import 'package:portfolio/model/skillset_tool.dart';
 import 'package:portfolio/screen/section/about_screen.dart';
 import 'package:portfolio/screen/section/home_screen.dart';
 import 'package:portfolio/screen/section/portfolio_screen.dart';
@@ -44,7 +45,7 @@ const List<Section> sectionList = [
 List<LatestWork> latestWork = const [
   LatestWork(
     company: 'RiloTech',
-    periode: 'Agustus 2022 - present',
+    periode: 'Agustus 2022 - Agustus 2023',
     work: Work(
       projectName: kingkolMobile,
       projectPreview: [
@@ -66,7 +67,7 @@ List<LatestWork> latestWork = const [
   ),
   LatestWork(
     company: 'RiloTech',
-    periode: 'Agustus 2022 - present',
+    periode: 'Agustus 2022 - Agustus 2023',
     work: Work(
       projectName: "3Second Online",
       projectPreview: [
@@ -82,7 +83,7 @@ List<LatestWork> latestWork = const [
   ),
   LatestWork(
     company: 'RiloTech',
-    periode: 'Agustus 2022 - present',
+    periode: 'Agustus 2022 - Agustus 2023',
     work: Work(
       projectName: bedasMarket,
       projectPreview: [
@@ -100,4 +101,13 @@ List<LatestWork> latestWork = const [
     storeUrl:
         "https://play.google.com/store/apps/details?id=com.bedasmarket.app",
   ),
+];
+
+List<SkillsetTool> skillsetTools = const [
+  SkillsetTool(name: 'Flutter', icon: StringAsset.flutterIcon),
+  SkillsetTool(name: 'Visual Studio Code', icon: StringAsset.vsCodeIconPng),
+  SkillsetTool(name: 'Git', icon: StringAsset.gitIcon),
+  SkillsetTool(name: 'Insomnia', icon: StringAsset.insomniaIcon),
+  SkillsetTool(name: 'Postman', icon: StringAsset.postmanIconSvg),
+  SkillsetTool(name: 'Firebase', icon: StringAsset.firebaseIcon),
 ];

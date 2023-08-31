@@ -40,9 +40,7 @@ class SkillsScreen extends StatelessWidget {
                     (skillsetTools) => _SkillWidget(
                       label: skillsetTools.name,
                       asset: skillsetTools.icon,
-                      isSvg: skillsetTools.name == 'Postman' ||
-                              skillsetTools.name == 'Firebase' ||
-                              skillsetTools.name == 'Flutter'
+                      isSvg: skillsetTools.name == 'Visual Studio Code'
                           ? true
                           : false,
                       desc: '',

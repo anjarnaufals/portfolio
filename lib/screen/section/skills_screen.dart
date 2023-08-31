@@ -41,8 +41,8 @@ class SkillsScreen extends StatelessWidget {
                       label: skillsetTools.name,
                       asset: skillsetTools.icon,
                       isSvg: skillsetTools.name == 'Visual Studio Code'
-                          ? true
-                          : false,
+                          ? false
+                          : true,
                       desc: '',
                     ),
                   )

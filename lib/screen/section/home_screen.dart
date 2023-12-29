@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:portfolio/helper/helper.dart';
 import 'package:portfolio/screen/section/reach_me_widget.dart';
 import 'package:portfolio/string/string_assets.dart';
@@ -64,7 +63,7 @@ class HomeScreen extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(6),
               child: Image.asset(
-                StringAsset.orenoFotoCompressed,
+                Assets.orenoFotoCompressed,
                 height: MediaQuery.of(context).size.height * .3,
               ),
             ),

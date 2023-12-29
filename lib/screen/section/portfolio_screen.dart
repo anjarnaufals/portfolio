@@ -9,6 +9,8 @@ import 'package:portfolio/theme/app_theme.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../model/latest_company.dart';
+
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({
     super.key,
@@ -18,11 +20,22 @@ class PortfolioScreen extends StatefulWidget {
   State<PortfolioScreen> createState() => _PortfolioScreenState();
 }
 
-class _PortfolioScreenState extends State<PortfolioScreen> {
+class _PortfolioScreenState extends State<PortfolioScreen>
+    with SingleTickerProviderStateMixin {
   //
-  final ValueNotifier<LatestWork> _latestWork = ValueNotifier(latestWork[0]);
+
   final PageController _pageController = PageController();
   final ScrollController _scrollController = ScrollController();
+  final ValueNotifier<LatestCompany> _latestCompany =
+      ValueNotifier(latestCompany[0]);
+
+  final ValueNotifier<List<LatestWork>> _selectedListLatestWork =
+      ValueNotifier(latestWorkRilo);
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,82 +43,135 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
       children: [
         Positioned.fill(
           child: Helper.passBreakPointViewPort(context)
-              ? PageView.builder(
-                  pageSnapping: true,
-                  controller: _pageController,
-                  scrollDirection: Axis.horizontal,
-                  onPageChanged: (i) {
-                    _latestWork.value = latestWork[i];
-                  },
-                  itemCount: latestWork.length,
-                  itemBuilder: (_, index) {
-                    final work = latestWork[index];
+              ? Stack(
+                  children: [
+                    Positioned.fill(
+                      child: ValueListenableBuilder(
+                        valueListenable: _selectedListLatestWork,
+                        builder: (_, selectedlatestWork, __) =>
+                            PageView.builder(
+                          pageSnapping: true,
+                          controller: _pageController,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: selectedlatestWork.length,
+                          itemBuilder: (_, index) {
+                            final work = selectedlatestWork[index];
 
-                    return Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: _PortfolioItem(work: work),
-                    );
-                  },
-                )
-              : ScrollbarTheme(
-                  data: ScrollbarThemeData(
-                    crossAxisMargin: 2,
-                    thickness: const MaterialStatePropertyAll(10),
-                    radius: const Radius.circular(6),
-                    thumbColor: MaterialStatePropertyAll(
-                      AppTheme.tertiary(context).withOpacity(.5),
+                            return Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: _PortfolioItem(work: work),
+                            );
+                          },
+                        ),
+                      ),
                     ),
-                  ),
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    controller: _scrollController,
-                    scrollbarOrientation: ScrollbarOrientation.bottom,
-                    child: GridView.builder(
-                      controller: _scrollController,
-                      padding: const EdgeInsets.only(
-                        top: kToolbarHeight + 20,
-                        bottom: kToolbarHeight,
-                      ),
-                      primary: false,
-                      scrollDirection: Axis.horizontal,
-                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: MediaQuery.of(context).size.height,
-                        mainAxisExtent: MediaQuery.of(context).size.width * .4,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 20,
-                      ),
-                      itemCount: latestWork.length,
-                      itemBuilder: (_, index) {
-                        final work = latestWork[index];
-
-                        return Container(
-                          padding: const EdgeInsets.all(30.0),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              right: BorderSide(
-                                color: AppTheme.tertiary(context),
-                                width: .5,
-                              ),
-                            ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 0,
+                          right: 60,
+                        ),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * .4,
+                          child: _DropDownSelectCompany(
+                            latestCompany: _latestCompany,
+                            selectedListLatestWork: _selectedListLatestWork,
                           ),
-                          child: _PortfolioItem(work: work),
-                        );
-                      },
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
+                )
+              : Stack(
+                  children: [
+                    ScrollbarTheme(
+                      data: ScrollbarThemeData(
+                        crossAxisMargin: 2,
+                        thickness: const MaterialStatePropertyAll(10),
+                        radius: const Radius.circular(6),
+                        thumbColor: MaterialStatePropertyAll(
+                          AppTheme.tertiary(context).withOpacity(.5),
+                        ),
+                      ),
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        controller: _scrollController,
+                        scrollbarOrientation: ScrollbarOrientation.bottom,
+                        child: ValueListenableBuilder(
+                          valueListenable: _selectedListLatestWork,
+                          builder: (_, selectedlatestWork, __) =>
+                              GridView.builder(
+                            controller: _scrollController,
+                            padding: const EdgeInsets.only(
+                              top: kToolbarHeight + 20,
+                              bottom: kToolbarHeight,
+                            ),
+                            primary: false,
+                            scrollDirection: Axis.horizontal,
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent:
+                                  MediaQuery.of(context).size.height,
+                              mainAxisExtent:
+                                  MediaQuery.of(context).size.width * .4,
+                              crossAxisSpacing: 20,
+                              mainAxisSpacing: 20,
+                            ),
+                            itemCount: selectedlatestWork.length,
+                            itemBuilder: (_, index) {
+                              final work = selectedlatestWork[index];
+
+                              return Container(
+                                padding: const EdgeInsets.all(30.0),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    right: BorderSide(
+                                      color: AppTheme.tertiary(context),
+                                      width: .5,
+                                    ),
+                                  ),
+                                ),
+                                child: _PortfolioItem(work: work),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 0,
+                          right: 60,
+                        ),
+                        child: SizedBox(
+                          width: 300,
+                          child: _DropDownSelectCompany(
+                            latestCompany: _latestCompany,
+                            selectedListLatestWork: _selectedListLatestWork,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
         ),
         if (Helper.passBreakPointViewPort(context))
-          Positioned(
-            left: 30,
-            top: 30,
-            child: SmoothPageIndicator(
-              count: latestWork.length,
-              controller: _pageController,
-              effect: WormEffect(
-                dotColor: AppTheme.primary(context).withOpacity(.4),
-                activeDotColor: AppTheme.primary(context),
+          ValueListenableBuilder(
+            valueListenable: _selectedListLatestWork,
+            builder: (_, selectedlatestWork, __) => Positioned(
+              left: 30,
+              top: 30,
+              child: SmoothPageIndicator(
+                count: selectedlatestWork.length,
+                controller: _pageController,
+                effect: WormEffect(
+                  dotColor: AppTheme.primary(context).withOpacity(.4),
+                  activeDotColor: AppTheme.primary(context),
+                ),
               ),
             ),
           ),
@@ -115,10 +181,54 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
 
   @override
   void dispose() {
-    _latestWork.dispose();
     _pageController.dispose();
     _scrollController.dispose();
     super.dispose();
+  }
+}
+
+class _DropDownSelectCompany extends StatelessWidget {
+  const _DropDownSelectCompany({
+    required ValueNotifier<LatestCompany> latestCompany,
+    required ValueNotifier<List<LatestWork>> selectedListLatestWork,
+  })  : _latestCompany = latestCompany,
+        _selectedListLatestWork = selectedListLatestWork;
+
+  final ValueNotifier<LatestCompany> _latestCompany;
+  final ValueNotifier<List<LatestWork>> _selectedListLatestWork;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: _latestCompany,
+      builder: (_, company, __) => DropdownButton<LatestCompany>(
+        padding: const EdgeInsets.all(6),
+        borderRadius: const BorderRadius.all(Radius.circular(6)),
+        focusColor: AppTheme.primaryContainer(context),
+        isExpanded: true,
+        value: company,
+        style: AppStyle.bodyLarge(context).copyWith(
+          color: AppTheme.onPrimaryContainer(context),
+        ),
+        items: latestCompany
+            .map(
+              (e) => DropdownMenuItem(
+                value: e,
+                child: Helper.passBreakPointViewPort(context)
+                    ? FittedBox(
+                        child: Text('${e.name}'),
+                      )
+                    : Text('${e.name}'),
+              ),
+            )
+            .toList(),
+        onChanged: (value) {
+          _latestCompany.value = value!;
+          _selectedListLatestWork.value =
+              value == rilotechCompany ? latestWorkRilo : latestWorkInkare;
+        },
+      ),
+    );
   }
 }
 
@@ -139,7 +249,7 @@ class _PortfolioItem extends StatelessWidget {
         if (Helper.passBreakPointViewPort(context))
           const SizedBox(height: kToolbarHeight - 20),
         Text(
-          work.company,
+          work.company.name ?? '',
           style: AppStyle.bodyLarge(context).copyWith(
             fontWeight: FontWeight.w400,
           ),
@@ -228,13 +338,18 @@ class _PortfolioItem extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  "Check it out on Play Store ",
-                  style: AppStyle.bodyMedium(context)
-                      .copyWith(color: AppTheme.tertiary(context)),
+                Flexible(
+                  child: Text(
+                    "Check it out on Play Store ",
+                    style: AppStyle.bodyMedium(context).copyWith(
+                      color: AppTheme.tertiary(context),
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 SvgPicture.asset(
-                  StringAsset.googlePlayIcon,
+                  Assets.googlePlayIcon,
                   height: 18,
                 ),
               ],
@@ -283,14 +398,55 @@ class _PreviewWorkWidgetState extends State<_PreviewWorkWidget> {
           ),
           const SizedBox(height: 30),
           Expanded(
-            child: PageView.builder(
-              controller: _previewController,
-              itemCount: widget.work.work.projectPreview.length,
-              itemBuilder: (_, index2) {
-                final workPreview = widget.work.work.projectPreview[index2];
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: PageView.builder(
+                    controller: _previewController,
+                    itemCount: widget.work.work.projectPreview.length,
+                    itemBuilder: (_, index2) {
+                      final workPreview =
+                          widget.work.work.projectPreview[index2];
 
-                return Image.asset(workPreview);
-              },
+                      return Image.asset(workPreview);
+                    },
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.only(
+                      start: 16,
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        _previewController.previousPage(
+                          duration: Durations.short3,
+                          curve: Curves.easeIn,
+                        );
+                      },
+                      icon: const Icon(Icons.arrow_back_ios),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.only(
+                      end: 16,
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        _previewController.nextPage(
+                          duration: Durations.short3,
+                          curve: Curves.easeIn,
+                        );
+                      },
+                      icon: const Icon(Icons.arrow_forward_ios),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 30),

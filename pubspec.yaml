@@ -37,6 +37,8 @@ flutter:
   assets:
     - assets/image/
     - assets/fonts/
+    - assets/image/inkare_last_work/
+    - assets/image/rilo_last_work/
   fonts:
     - family: RobotoMono
       fonts:

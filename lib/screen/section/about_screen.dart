@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:portfolio/helper/helper.dart';
 import 'package:portfolio/main.dart';
 import 'package:portfolio/string/string_assets.dart';
@@ -89,7 +88,7 @@ class AboutScreen extends StatelessWidget {
                       WidgetSpan(
                         child: Padding(
                           padding: EdgeInsetsDirectional.only(end: 10),
-                          child: SimpleSvg(StringAsset.phoneIcon),
+                          child: SimpleSvg(Assets.phoneIcon),
                         ),
                       ),
                       TextSpan(text: myPhone),
@@ -118,7 +117,7 @@ class AboutScreen extends StatelessWidget {
                       WidgetSpan(
                         child: Padding(
                           padding: EdgeInsetsDirectional.only(end: 10),
-                          child: SimpleSvg(StringAsset.emailIcon),
+                          child: SimpleSvg(Assets.emailIcon),
                         ),
                       ),
                       TextSpan(text: myEmail),
@@ -136,7 +135,7 @@ class AboutScreen extends StatelessWidget {
                     WidgetSpan(
                       child: Padding(
                         padding: EdgeInsetsDirectional.only(end: 10),
-                        child: SimpleSvg(StringAsset.locationIcon),
+                        child: SimpleSvg(Assets.locationIcon),
                       ),
                     ),
                     TextSpan(text: myLocation),
@@ -153,7 +152,7 @@ class AboutScreen extends StatelessWidget {
                     WidgetSpan(
                       child: Padding(
                         padding: EdgeInsetsDirectional.only(end: 10),
-                        child: SimpleSvg(StringAsset.graduationIcon),
+                        child: SimpleSvg(Assets.graduationIcon),
                       ),
                     ),
                     TextSpan(text: myDegree),

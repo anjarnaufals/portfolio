@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-
 import 'package:portfolio/string/string_assets.dart';
 import 'package:portfolio/string/string_text.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ReachMeWidget extends StatelessWidget {
   const ReachMeWidget({super.key});
@@ -21,7 +20,7 @@ class ReachMeWidget extends StatelessWidget {
               launchUrlString("https://discord.com/users/411787229564895233");
             },
             child: SvgPicture.asset(
-              StringAsset.discordIcon,
+              Assets.discordIcon,
               height: 50,
             ),
           ),
@@ -32,7 +31,7 @@ class ReachMeWidget extends StatelessWidget {
               );
             },
             child: SvgPicture.asset(
-              StringAsset.gmailIcon,
+              Assets.gmailIcon,
               height: 50,
             ),
           ),
@@ -41,7 +40,7 @@ class ReachMeWidget extends StatelessWidget {
               launchUrlString("https://www.linkedin.com/in/anjarnaufals/");
             },
             child: SvgPicture.asset(
-              StringAsset.linkedinIcon,
+              Assets.linkedinIcon,
               height: 50,
             ),
           ),

@@ -33,22 +33,28 @@
   <title>Portfolio - anjar</title>
   <link rel="manifest" href="manifest.json">
 
-  <script>
+  <!-- <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = null;
-  </script>
+   
+  </script> -->
   <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
+  <!-- <script src="flutter.js" defer></script> -->
 </head>
 <body>
-  <script>
+  <script src="flutter_bootstrap.js" async>
+    {{flutter_service_worker_version}}
+    {{flutter_js}}
+    {{flutter_build_config}}
+    
     window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
+      const loading = document.createElement('div');
+      document.body.appendChild(loading);
+      loading.textContent = "Loading Entrypoint...";
+
+      _flutter.loader.load({
+        onEntrypointLoaded: async function(engineInitializer) {
+        loading.textContent = "Initializing engine...";
+        const appRunner = await engineInitializer.initializeEngine();
           engineInitializer.initializeEngine().then(function(appRunner) {
             appRunner.runApp();
           });

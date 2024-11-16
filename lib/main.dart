@@ -2,15 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:portfolio/screen/main/main_cubit.dart';
 import 'package:portfolio/screen/main/main_screen.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 // TODO : localization en, id.
 // TODO : add frame to preview apps Inkare Company
 
 void main() {
-  setPathUrlStrategy();
+  usePathUrlStrategy();
   runApp(const App());
 }
 
